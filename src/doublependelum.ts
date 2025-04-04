@@ -1,16 +1,20 @@
 import p5 from "p5";
 import { GlobalConfig } from "./config";
 
-export type pendelumConfig = GlobalConfig & {};
+export type pendelumConfig = GlobalConfig & {
+  gravityForce?: number;
+};
 
 export function doublePendelum(p: p5, config: pendelumConfig) {
   const params = {
     width: config?.width ?? 800,
     height: config?.height ?? 600,
 
+    gravityForce: config?.gravityForce ?? 1,
+
     scale: config?.scale ?? 8,
-    backgroundColor: config?.backgroundColor ?? 255,
-    lineColor: config?.lineColor ?? 0,
+    backgroundColor: config?.backgroundColor ?? 0,
+    lineColor: config?.lineColor ?? 255,
   };
 
   const l1 = params.height / 4;
@@ -25,7 +29,7 @@ export function doublePendelum(p: p5, config: pendelumConfig) {
   let a2_v = 0;
   let a1_a = 0;
   let a2_a = 0;
-  const g = 1;
+  const g = params.gravityForce;
 
   let px2: number | null = null;
   let py2: number | null = null;
@@ -71,8 +75,10 @@ export function doublePendelum(p: p5, config: pendelumConfig) {
       let x2 = l1 * Math.sin(a1) + l2 * Math.sin(a2);
       let y2 = l1 * Math.cos(a1) + l2 * Math.cos(a2);
 
+      p.stroke(params.lineColor);
+
       p.translate(p.width / 2, p.height / 4);
-      p.fill(0);
+      p.fill(params.lineColor);
 
       p.ellipse(x1, y1, 20, 20);
       p.line(0, 0, x1, y1);
@@ -81,12 +87,12 @@ export function doublePendelum(p: p5, config: pendelumConfig) {
 
       if (p.frameCount > 1) {
         if (px2 !== null && py2 !== null) {
-          pg.stroke(0, 50);
+          pg.stroke(params.lineColor, 50);
           pg.line(
             px2 + p.width / 2,
             py2 + p.height / 4,
             x2 + p.width / 2,
-            y2 + p.height / 4
+            y2 + p.height / 4,
           );
         }
       }
@@ -110,7 +116,7 @@ export function doublePendelum(p: p5, config: pendelumConfig) {
         py2 = null;
 
         pg.clear();
-        pg.background(255);
+        pg.background(params.backgroundColor);
 
         startTime = p.millis();
       }

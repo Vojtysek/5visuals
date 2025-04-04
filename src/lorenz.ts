@@ -20,8 +20,8 @@ export function lorenzSystem(p: p5, config?: LorenzConfig) {
     height: config?.height ?? 600,
 
     scale: config?.scale ?? 4,
-    backgroundColor: config?.backgroundColor ?? 255,
-    lineColor: config?.lineColor ?? 0,
+    backgroundColor: config?.backgroundColor ?? 0,
+    lineColor: config?.lineColor ?? 255,
   };
 
   const ro = 10;
@@ -77,7 +77,7 @@ export function lorenzSystem(p: p5, config?: LorenzConfig) {
           0,
           0,
           1,
-          0
+          0,
         );
       } else {
         const camX = p.map(
@@ -85,14 +85,14 @@ export function lorenzSystem(p: p5, config?: LorenzConfig) {
           0,
           p.width,
           -params.rotationSensitivity,
-          params.rotationSensitivity
+          params.rotationSensitivity,
         );
         const camY = p.map(
           p.mouseY,
           0,
           p.height,
           -params.rotationSensitivity,
-          params.rotationSensitivity
+          params.rotationSensitivity,
         );
         p.camera(
           camX,
@@ -103,7 +103,7 @@ export function lorenzSystem(p: p5, config?: LorenzConfig) {
           0,
           0,
           1,
-          0
+          0,
         );
       }
 
