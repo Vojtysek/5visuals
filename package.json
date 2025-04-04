@@ -3,7 +3,7 @@
     "visuals": "./cli.ts"
   },
   "name": "5visuals",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "type": "module",
   "private": false,
   "main": "dist/index.cjs",
